@@ -279,6 +279,7 @@ const {
 ## Array Types
 
 - Several ways to work with Array Types:
+
   ```tsx
   const bigTechs = ['Microsoft', 'Google', 'Apple', 'Facebook'];
 
@@ -286,7 +287,9 @@ const {
 
   let dates: Array<string>;
   ```
+
 - 2D array :
+
   ```tsx
   const movies = [['Sherlock Holmes'], ['Enola Holmes'], ['Titanic']];
 
@@ -294,6 +297,7 @@ const {
 
   let food: Array<Array<string>>;
   ```
+
 - Help with inference when extracting values :
   - We can now hover to the variable and we can know the type
   ```tsx
@@ -313,8 +317,341 @@ const {
   });
   ```
 - Flexible types
+
   ```tsx
   const importantDates = [new Date(), '2020-10-10'];
 
   let crucialDates: (Date | string)[] = [];
   ```
+
+## Tuples Types
+
+> Tuple ⇒ Array-like structure where each element represents some property of a record
+
+For example we have an array like this :
+
+```tsx
+const pepsi = ['brown', true, 40];
+```
+
+When we hover it :
+
+`const pepsi: (string | number | boolean)[]`
+
+So TS will inference that the type is a combination of string, number, and boolean, and the order is not important. this could be a problem since in a `tuple` we want then in a specific order.
+
+So we use type annotation like this for `tuple` data type:
+
+```tsx
+let pepsi: [string, boolean, number] = ['brown', true, 40];
+
+console.log((pepsi[0] = 56)); // => this will be an error.
+```
+
+In the example above, TS will throw an error :
+
+```tsx
+let pepsi: [string, boolean, number]
+Type 'number' is not assignable to type 'string'.ts(2322)
+```
+
+Ts will now know the order of the type.
+
+We can also use Type alias to make our life easier :
+
+```tsx
+//type alias for tuple
+type Drink = [string, boolean, number];
+
+let cocaCola: Drink;
+```
+
+However we’re not going to use tuple very often. Since it’s lack of clarity.
+
+It’s better we use Object :
+
+```tsx
+// Tuple is not really useful since we don't know what it is.
+// Please compare these two types:
+
+const carSpecs: [number, number] = [400, 3356];
+
+const catSpecs2 = {
+  horsePower: 400,
+  weight: 3354,
+};
+```
+
+## Interface
+
+> Interfaces + Classes = How we get really strong code reuse in TS
+
+Interface creates a new type (custom type), describing the property names and value types of an object.
+
+Let’s take a code below:
+
+```tsx
+//Take a look below, it's difficult to read. The parameters are too long.
+
+const oldPhone = {
+  name: 'Old Iphone',
+  year: 2012,
+  broken: true,
+};
+
+const printPhone = (vehicle: {
+  name: string;
+  year: number;
+  broken: boolean;
+}) => {
+  console.log(`Name : ${vehicle.name}`);
+  console.log(`Year : ${vehicle.year}`);
+  console.log(`Name : ${vehicle.broken}`);
+};
+
+printPhone(oldPhone);
+```
+
+The code above works perfectly fine, but it has a problem, the parameters are too long.
+
+Let’s fix it using `interface`
+
+```tsx
+interface Phone {
+  name: string;
+  year: number;
+  broken: boolean;
+}
+
+const oldPhone = {
+  name: 'Old Iphone',
+  year: 2012,
+  broken: true,
+};
+
+const printPhone = (vehicle: Phone) => {
+  console.log(`Name : ${vehicle.name}`);
+  console.log(`Year : ${vehicle.year}`);
+  console.log(`Name : ${vehicle.broken}`);
+};
+
+printPhone(oldPhone);
+```
+
+We can also use customer types like function in the interface. The example below is the example of using a function type:
+
+```tsx
+interface Phone {
+  name: string;
+  year: Date;
+  broken: boolean;
+  summary(): string;
+}
+
+const oldPhone = {
+  name: 'Old Iphone',
+  year: new Date(),
+  broken: true,
+  summary(): string {
+    return `Name : ${this.name}`;
+  },
+};
+
+const printPhone = (phone: Phone) => {
+  console.log(phone.summary());
+};
+
+printPhone(oldPhone);
+```
+
+Code Reuse with interfaces:
+
+- Please take a look at the code below.
+- We can write a reusable code.
+- When we pass an object, TS will check whether the object contains the properties that defined in the interface. This will make our code useable.
+
+```tsx
+interface Reportable {
+  summary(): string;
+}
+
+const oldPhone = {
+  name: 'Old Iphone',
+  year: new Date(),
+  broken: true,
+  summary(): string {
+    return `Name : ${this.name}`;
+  },
+};
+
+const drink2 = {
+  color: 'brown',
+  carbonated: true,
+  sugar: 40,
+  summary(): string {
+    return `My drink has ${this.sugar} grams of sugar`;
+  },
+};
+
+const printRepot = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+printRepot(oldPhone);
+printRepot(drink2);
+```
+
+Here’s the general strategy for Reusable Code in TS:
+
+- Create functions that accept arguments that are typed with interfaces.
+- Object/classes can decide to implement a given interface to work with a function.
+
+## Class
+
+> Class ⇒ a blueprint to create an object with some fields (values) and methods (functions) to represent a ‘thing’
+
+Here’s the example of using class:
+
+```tsx
+class Vehicle {
+  drive(): void {
+    console.log('brumm');
+  }
+
+  honk(): void {
+    console.log('bip bip');
+  }
+}
+
+const vehicle = new Vehicle();
+
+vehicle.drive();
+vehicle.honk();
+```
+
+Basic Inheritance: This is the example of basic inheritance :
+
+```tsx
+class Vehicle {
+  drive(): void {
+    console.log('brumm');
+  }
+
+  honk(): void {
+    console.log('beep beep');
+  }
+}
+
+class MotorCycle extends Vehicle {
+  //overriding the existing class
+  drive(): void {
+    console.log('The motorcyle is running!!!');
+  }
+}
+
+const motor = new MotorCycle();
+
+motor.drive();
+motor.honk();
+```
+
+In TypeScript there are something called modified :
+
+- public :
+  - This method can be called anywhere, any time
+- private.
+  - This method can only be called by other methods in this class
+- protected
+  - This method can be called by other methods in this class, or by other methods in child classes.
+
+Code example:
+
+```tsx
+class Vehicle {
+  public drive(): void {
+    console.log('brumm');
+  }
+
+  //We can only use private in this class only
+  private sound(): void {
+    console.log('Jrenggg!!!');
+  }
+
+  //We can use this in this class and in the child class
+  //But we can't use this in the instance.
+  protected honk(): void {
+    console.log('beep beep');
+  }
+}
+
+class MotorCycle extends Vehicle {
+  //overriding the existing class
+  public drive(): void {
+    console.log('The motorcyle is running!!!');
+  }
+
+  //we can use this in this child class
+  protected honk(): void {}
+}
+
+const motor = new MotorCycle();
+
+motor.drive();
+```
+
+Now let’s talk about field or data : modifiers, constructors, and also inheritance :
+
+```tsx
+class Vehicle {
+  // color: string;
+  // constructor(color: string = 'no no color'){
+  //   this.color = color;
+  // }
+
+  // or we can just use like this
+  constructor(public color: string = 'no no color') {}
+
+  public drive(): void {
+    console.log('brumm');
+  }
+
+  //We can only use private in this class only
+  private sound(): void {
+    console.log('Jrenggg!!!');
+  }
+
+  //We can use this in this class and in the child class
+  //But we can't use this in the instance.
+  protected honk(): void {
+    console.log('beep beep');
+  }
+}
+
+class MotorCycle extends Vehicle {
+  constructor(public wheels: number = 2, public color: string) {
+    super(color);
+  }
+
+  //overriding the existing class
+  public drive(): void {
+    console.log('The motorcyle is running!!!');
+  }
+
+  //we can use this in this child class
+  protected honk(): void {}
+}
+
+const motor = new MotorCycle(2, 'red');
+console.log(motor.color);
+motor.drive();
+
+const newCar = new Vehicle('orange');
+console.log(newCar.color);
+
+const newCar2 = new MotorCycle(3, 'red');
+console.log(newCar2.color);
+```
+
+When we use this?
+
+> Interfaces + Classes = how we get really strong code reuse in TS
