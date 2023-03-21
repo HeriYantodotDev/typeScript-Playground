@@ -171,3 +171,150 @@ for (let i = 0; i < numbers.length; i++) {
 ```
 
 ## Annotations with Functions and Objects
+
+Two types annotations for functions :
+
+- Type annotations for functions
+  - Code we add to tell TypeScript what type of arguments a function will receive and what type of values it will return
+- Type inference for functions
+  - TypeScript tries to figure out what type of value a function will return
+
+> **Remember! For function we always want to use Type annotations**
+
+For example : In code below TS will guess (Type inference for function) what is the type of the return value.
+
+```tsx
+const add = (a: number, b: number) => {
+  return a + b;
+};
+```
+
+In this case we use Type annotations for functions. we want the return value type to be string, we do not convert it to string then it would be an error because TypeScript knows that `a+b` type is a number.
+
+```tsx
+const add2 = (a: number, b: number): string => {
+  return String(a + b);
+};
+```
+
+> But remember! we should always put the type of what we’d like to return to avoid confusion. Whether we’d like to return something or just void
+
+Looks at the example below:
+
+```tsx
+const subtract = (a: number, b: number) => {
+  a - b;
+};
+```
+
+In this below example, TS will guess this function will return void or not returning anything. It won’t catch any error. Therefore we have to specify the return type for the function so it could catch error.
+
+`A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.ts(2847)`
+
+Another example for void & never
+
+Void is not returning anything. But it could return undefined.
+
+```tsx
+const logger = (message: string): void => {
+  console.log(message);
+  return undefined;
+};
+```
+
+For never. It’s type that will never reach to the end of the function.
+
+```tsx
+const error = (message: string): never => {
+  throw new Error(message);
+};
+```
+
+Destructuring. This is how we destructure the arguments.
+
+```tsx
+//destructuring
+
+const todaysWeather = {
+  date: new Date(),
+  weather: 'sunny',
+};
+
+const logWeather = ({
+  date,
+  weather,
+}: {
+  date: Date;
+  weather: string;
+}): void => {
+  console.log(date);
+  console.log(weather);
+};
+
+logWeather(todaysWeather);
+```
+
+Annotations around object:
+
+```tsx
+//annotations around objects
+const profile = {
+  name: 'alex',
+  age: 20,
+  coords: {
+    lat: 0,
+    lng: 15,
+  },
+  setAge(age: number): void {
+    this.age = age;
+  },
+};
+
+const { age, name: profileName }: { age: number; name: string } = profile;
+const {
+  coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile;
+```
+
+## Array Types
+
+- Several ways to work with Array Types:
+  ```tsx
+  const bigTechs = ['Microsoft', 'Google', 'Apple', 'Facebook'];
+
+  let vegetables: string[];
+
+  let dates: Array<string>;
+  ```
+- 2D array :
+  ```tsx
+  const movies = [['Sherlock Holmes'], ['Enola Holmes'], ['Titanic']];
+
+  let people: string[][];
+
+  let food: Array<Array<string>>;
+  ```
+- Help with inference when extracting values :
+  - We can now hover to the variable and we can know the type
+  ```tsx
+  const techCompany = bigTechs[0];
+  const removedCompany = bigTechs.pop();
+  ```
+- Prevent incompatible values
+  - Error will pop up if we put the incompatible values :
+    ```tsx
+    bigTechs.push(1000);
+    //Argument of type 'number' is not assignable to parameter of type 'string'.ts(2345)
+    ```
+- Help with array built in function and the type auto complete. Our IDE will give us insight about this.
+  ```tsx
+  bigTechs.map((company) => {
+    return company;
+  });
+  ```
+- Flexible types
+  ```tsx
+  const importantDates = [new Date(), '2020-10-10'];
+
+  let crucialDates: (Date | string)[] = [];
+  ```
