@@ -1,1 +1,5 @@
 node_modules
+.env
+simple-map-project/src/config.ts
+simple-map-project/.parcel-cache/
+simple-map-project/dist/
