@@ -2,4 +2,5 @@
 
 - [Introduction](/introduction/)
 - [Types](/types/)
-- [Simple Map Project - Understanding Design Patter](/simple-map-project/)
+- [Project: Simple Map - Understanding Design Patter](/simple-map-project/)
+- [Project: Sorting Array, String, Linked-List ](/sortingProject/)
