@@ -1,45 +1,25 @@
-import fs from 'fs';
+import { MatchReader } from './MatchReader';
 import path from 'path';
+import { MatchType } from './TypesThisProject';
+import { WinCountReturnType } from './TypesThisProject';
+import { MATCH_RESULT } from './TypesThisProject';
+import { CSVFileReader } from './CSVFileReader';
 
-function readCSVData(path: string): string {
-  return fs.readFileSync(path, {
-    encoding: 'utf-8'
-  });
-};
-
-function parseStringtoArrayString2D(data: string): string[][] {
-  return data
-  .split('\n')
-  .map((row: string): string[] => {
-    return row.split(',');
-  });
-};
-
-function generateListScore(): string[][]{
+function generateMatchesArray(): MatchType[]{
   const CSV_PATH = path.join(__dirname,'..','data','football.csv');
-  const matches = readCSVData(CSV_PATH);
-  return parseStringtoArrayString2D(matches);
-};
+  const matches = new MatchReader(new CSVFileReader(CSV_PATH));
 
-interface winCountReturnType {
-  homeWin: number,
-  awayWin: number,
-  totalWin: number,
-  homeLose: number,
-  awayLose: number,
-  totalHomeGame: number,
-  totalAwayGame: number, 
-  totalGame: number,
-  totalLose: number
-};
+  console.log(matches.matches[0][0]);
+  console.log(matches.matches[0][1]);
+  console.log(matches.matches[0][2]);
+  console.log(matches.matches[0][3]);
+  console.log(matches.matches[0][4]);
+  console.log(matches.matches[0][5]);
+  console.log(matches.matches[0][6]);
+  return matches.matches;
+}
 
-function winCount(matchesArray: string[][], club: string): winCountReturnType {
-
-  enum MATCH_RESULT {
-    HOME_WIN = 'H',
-    AWAY_WIN = 'A',
-    DRAW = 'D'
-  }
+function statisticAnalyzer(matchesArray: MatchType[], club: string): WinCountReturnType {
   
   let totalGame = 0;
   let totalHomeGame = 0;
@@ -50,6 +30,9 @@ function winCount(matchesArray: string[][], club: string): winCountReturnType {
   let homeLose = 0;
   let awayLose = 0;
   let totalLose = 0;
+  let totalGoalHome = 0;
+  let totalGoalAway = 0;
+
   
   matchesArray.forEach(element => {
 
@@ -92,10 +75,17 @@ function winCount(matchesArray: string[][], club: string): winCountReturnType {
 
 };
 
-function main(): void {
-  const matchesArray = generateListScore();
-  const manUnitedWin = winCount(matchesArray,'Man United');
-  console.table(manUnitedWin)
+
+function test(): void {
+  let horrayVariable = 'Okay';
+  horrayVariable = 'Kimak';
+  horrayVariable = 'Fuck';
+  console.log(horrayVariable)
 }
 
-main();
+(function main(): void {
+  
+  const matchesArray = generateMatchesArray();
+  const manUnitedWin = statisticAnalyzer(matchesArray,'Man United');
+  console.table(manUnitedWin)
+})();

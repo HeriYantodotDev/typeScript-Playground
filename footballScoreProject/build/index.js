@@ -3,36 +3,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
+const MatchReader_1 = require("./MatchReader");
 const path_1 = __importDefault(require("path"));
-function readCSVData(path) {
-    return fs_1.default.readFileSync(path, {
-        encoding: 'utf-8'
-    });
-}
-;
-function parseStringtoArrayString2D(data) {
-    return data
-        .split('\n')
-        .map((row) => {
-        return row.split(',');
-    });
-}
-;
-function generateListScore() {
+const TypesThisProject_1 = require("./TypesThisProject");
+const CSVFileReader_1 = require("./CSVFileReader");
+function generateMatchesArray() {
     const CSV_PATH = path_1.default.join(__dirname, '..', 'data', 'football.csv');
-    const matches = readCSVData(CSV_PATH);
-    return parseStringtoArrayString2D(matches);
+    const matches = new MatchReader_1.MatchReader(new CSVFileReader_1.CSVFileReader(CSV_PATH));
+    console.log(matches.matches[0][0]);
+    console.log(matches.matches[0][1]);
+    console.log(matches.matches[0][2]);
+    console.log(matches.matches[0][3]);
+    console.log(matches.matches[0][4]);
+    console.log(matches.matches[0][5]);
+    console.log(matches.matches[0][6]);
+    return matches.matches;
 }
-;
-;
-function winCount(matchesArray, club) {
-    let MATCH_RESULT;
-    (function (MATCH_RESULT) {
-        MATCH_RESULT["HOME_WIN"] = "H";
-        MATCH_RESULT["AWAY_WIN"] = "A";
-        MATCH_RESULT["DRAW"] = "D";
-    })(MATCH_RESULT || (MATCH_RESULT = {}));
+function statisticAnalyzer(matchesArray, club) {
     let totalGame = 0;
     let totalHomeGame = 0;
     let totalAwayGame = 0;
@@ -42,6 +29,8 @@ function winCount(matchesArray, club) {
     let homeLose = 0;
     let awayLose = 0;
     let totalLose = 0;
+    let totalGoalHome = 0;
+    let totalGoalAway = 0;
     matchesArray.forEach(element => {
         if (element[1] === club) {
             totalHomeGame++;
@@ -51,11 +40,11 @@ function winCount(matchesArray, club) {
             totalAwayGame++;
         }
         ;
-        if (element[1] === club && element[5] === MATCH_RESULT.HOME_WIN) {
+        if (element[1] === club && element[5] === TypesThisProject_1.MATCH_RESULT.HOME_WIN) {
             homeWin++;
         }
         ;
-        if (element[2] === club && element[5] === MATCH_RESULT.AWAY_WIN) {
+        if (element[2] === club && element[5] === TypesThisProject_1.MATCH_RESULT.AWAY_WIN) {
             awayWin++;
         }
         ;
@@ -78,9 +67,14 @@ function winCount(matchesArray, club) {
     };
 }
 ;
-function main() {
-    const matchesArray = generateListScore();
-    const manUnitedWin = winCount(matchesArray, 'Man United');
-    console.table(manUnitedWin);
+function test() {
+    let horrayVariable = 'Okay';
+    horrayVariable = 'Kimak';
+    horrayVariable = 'Fuck';
+    console.log(horrayVariable);
 }
-main();
+(function main() {
+    const matchesArray = generateMatchesArray();
+    const manUnitedWin = statisticAnalyzer(matchesArray, 'Man United');
+    console.table(manUnitedWin);
+})();
