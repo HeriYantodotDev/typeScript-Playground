@@ -34,5 +34,12 @@ class MatchReader {
         ];
     }
     ;
+    get readerData() {
+        const { filePath, data } = this.reader;
+        return {
+            filePath,
+            data
+        };
+    }
 }
 exports.MatchReader = MatchReader;

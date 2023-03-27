@@ -16,4 +16,7 @@ export interface WinCountReturnType {
   totalAwayGame: number,
   totalGame: number,
   totalLose: number,
+  totalGoalHome: number,
+  totalGoalAway: number,
+  totalGoal: number,
 }

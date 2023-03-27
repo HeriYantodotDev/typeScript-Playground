@@ -4,20 +4,20 @@ import { MATCH_RESULT } from "./TypesThisProject";
 
 interface DataReader {
   read(): void;
-  data: string[][]
+  data: string[][];
+  filePath: string;
 }
 
 export class MatchReader {
   matches: MatchType[] = [];
-  constructor (public reader: DataReader) {
+  constructor (protected reader: DataReader) {
     this.load();
   }
 
-  load(): void {
+  private load(): void {
     this.reader.read();
     this.mapRow();
   }
-  
 
   protected mapRow(): void {
     this.reader.data
@@ -41,7 +41,13 @@ export class MatchReader {
       row[6]
     ];
   };
-
-
-
+  
+  get readerData() {
+    const {filePath, data} = this.reader;
+    
+    return {
+      filePath,
+      data
+    }
+  }
 }

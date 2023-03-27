@@ -15,5 +15,4 @@ export class CSVFileReader {
         return element.split(',');
       });
   };
-
 };
