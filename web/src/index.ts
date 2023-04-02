@@ -1,18 +1,68 @@
-import { User } from "../model/User";
+import { User } from "./model/User";
 
-const user = new User ({name: 'John', age: 20});
+// async function testingFetch(): Promise<void> {
+//   const user = new User ({id: 1});
+//   await user.fetch();
+//   console.log(user.get('id'));
+//   console.log(user.get('name'));
+//   console.log(user.get('age'));
+// };
 
-user.on('change', () => {
+// async function testingSaveWithID(): Promise<void> {
+//   const user = new User ({id: 1});
+//   await user.fetch();
+//   user.set({
+//     name: 'OKAY2s',
+//     age: 1000,
+//   });
+//   user.save();
+// };
 
-});
+// async function testingSaveNoId(): Promise<void> {
 
-user.on('click', () => {
-  console.log('click');
-});
+//   const user = new User({});
+//   user.set({
+//     name: "NEW",
+//     age: 999
+//   });
 
-user.on('click', () => {
-  console.log('click2');
-});
+//   await user.save();
+//   await user.fetch();
+//   console.log(user.get('id'));
+//   console.log(user.get('name'));
+//   console.log(user.get('age'));
 
-console.log(user.events['click'][1]);
-console.log(user);
+// };
+
+// function testRefactoringEvenWithCompositionWithNestedObjects(): void {
+//   const user = new User({name: 'new record', age: 0});
+//   user.events.on('change', () => {
+//     console.log('change');
+//   })
+
+//   user.events.on('click', () => {
+//     console.log('click');
+//   })
+
+//   user.events.trigger('change');
+//   user.events.trigger('click');
+
+// };
+
+function testNewRefactoring() {
+  const user = new User({
+    name: 'new record', 
+    age: 0
+  });
+
+};
+
+async function main() {
+  // await testingFetch();
+  // await testingSaveWithID();
+  // await testingSaveNoId();
+  // testRefactoringEvenWithCompositionWithNestedObjects();
+  // testNewRefactoring();
+};
+
+main();
