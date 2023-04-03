@@ -1,8 +1,8 @@
-import axios from "axios";
-import { AxiosResponse } from "axios";
 import { Eventing } from "./Eventing";
-import { Sync } from "./Sync";
+import { ApiSync } from "./ApiSync";
 import { Attributes } from "./Attributes";
+import { Model } from "./Model";
+import { Collection } from "./Collection";
 
 export interface UserProps {
   [key: string]: string | number | undefined;
@@ -11,18 +11,21 @@ export interface UserProps {
   age?: number
 };
 
-export class User {
+const SERVER_URL: string = 'http://localhost:3000/users';
 
-  private SERVER_URL: string = 'http://localhost:3000/users';
-  
-  public events: Eventing = new Eventing();
+export class User extends Model<UserProps> {
 
-  public sync: Sync<UserProps> = new Sync<UserProps>(this.SERVER_URL);
+  static buildUser(attrs: UserProps): User {
+    return new User(
+      new Attributes<UserProps>(attrs),
+      new Eventing(),
+      new ApiSync<UserProps>(SERVER_URL)
+      );
+  }
 
-  public attributes: Attributes<UserProps>;
-
-  constructor(attrs: UserProps) {
-    this.attributes = new Attributes<UserProps>(attrs);
-  } 
-
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(
+      SERVER_URL, 
+      (json: UserProps) => User.buildUser(json));
+  }
 };
