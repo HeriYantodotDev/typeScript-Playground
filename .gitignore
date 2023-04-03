@@ -3,3 +3,5 @@ node_modules
 simple-map-project/src/config.ts
 simple-map-project/.parcel-cache/
 simple-map-project/dist/
+web/.parcel-cache
+web/dist
