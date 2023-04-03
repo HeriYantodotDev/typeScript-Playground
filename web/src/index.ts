@@ -1,4 +1,5 @@
 import {User} from "./model/User";
+import { UserForm } from "./view/UserForm";
 
 function testingGet() {
   const user = User.buildUser({
@@ -74,7 +75,19 @@ async function testAxios() {
   })
 
   collection.fetch();
-}
+};
+
+function testUserForm() {
+  const rootElement = document.getElementById('root');
+
+  if (!rootElement) {
+    throw new Error('Root element not found');
+  };
+
+  const userForm = new UserForm(rootElement);
+
+  userForm.render();
+};
 
 async function main() {
   // testingGet();
@@ -82,8 +95,8 @@ async function main() {
   // await testingFetch();
   // await testingSave();
   // await testingSaveExistingID();
-  await testAxios();
-
+  // await testAxios();
+  testUserForm();
 };
 
 main();

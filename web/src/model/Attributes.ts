@@ -12,5 +12,4 @@ export class Attributes<T extends {}> {
   getAllData = (): T => {
     return this.data
   }
-  
 }
