@@ -1,4 +1,9 @@
 import {User} from "./model/User";
+import { UserForm } from "./view/UserForm";
+import { UserEdit } from "./view/UserEdit";
+import { UserList } from "./view/UserList";
+import { Collection } from "./model/Collection";
+import { UserProps } from "./model/User";
 
 function testingGet() {
   const user = User.buildUser({
@@ -74,7 +79,44 @@ async function testAxios() {
   })
 
   collection.fetch();
-}
+};
+
+function testUserForm() {
+  const rootElement = document.getElementById('root');
+
+  if (!rootElement) {
+    throw new Error('Root element not found');
+  };
+
+  const user = User.buildUser({
+    name : "Heri Yanto",
+    age: 35
+  })
+
+  const userForm = new UserForm(rootElement, user);
+
+  userForm.render();
+};
+
+function testUserEdit() {
+  const rootElement = document.getElementById('root');
+
+  if (!rootElement) {
+    throw new Error('Root element not found');
+  };
+
+  const user = User.buildUser({
+    name : "Heri Yanto",
+    age: 35
+  })
+
+  const userEdit = new UserEdit(rootElement, user);
+
+  userEdit.render();
+
+  console.log(userEdit);
+};
+
 
 async function main() {
   // testingGet();
@@ -82,8 +124,9 @@ async function main() {
   // await testingFetch();
   // await testingSave();
   // await testingSaveExistingID();
-  await testAxios();
-
+  // await testAxios();
+  // testUserForm();
+  // testUserEdit();
 };
 
 main();
