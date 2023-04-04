@@ -17,8 +17,5 @@ export abstract class CollectionView<T, K> {
 
     this.parent.append(templateElement.content);
   }
-
-
-
 }
 
