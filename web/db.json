@@ -19,6 +19,16 @@
       "name": "Yoda",
       "age": 1000,
       "id": 4
+    },
+    {
+      "name": "Guan",
+      "age": 35,
+      "id": 5
+    },
+    {
+      "name": "Feature",
+      "age": 94,
+      "id": 6
     }
   ]
 }

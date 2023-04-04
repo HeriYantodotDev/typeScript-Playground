@@ -21,11 +21,16 @@ export class User extends Model<UserProps> {
       new Eventing(),
       new ApiSync<UserProps>(SERVER_URL)
       );
-  }
+  };
 
   static buildUserCollection(): Collection<User, UserProps> {
     return new Collection<User, UserProps>(
       SERVER_URL, 
       (json: UserProps) => User.buildUser(json));
+  };
+
+  setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+    this.set({age});
   }
 };
