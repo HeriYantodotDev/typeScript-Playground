@@ -1,15 +1,15 @@
 "use strict";
 //annotations around objects
-const profile = {
+var profile = {
     name: 'alex',
     age: 20,
     coords: {
         lat: 0,
         lng: 15
     },
-    setAge(age) {
+    setAge: function (age) {
         this.age = age;
     }
 };
-const { age, name: profileName } = profile;
-const { coords: { lat, lng } } = profile;
+var age = profile.age, profileName = profile.name;
+var _a = profile.coords, lat = _a.lat, lng = _a.lng;
