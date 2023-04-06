@@ -1,16 +1,16 @@
 "use strict";
-const drink = {
+var drink = {
     color: 'brown',
     carbonated: true,
     sugar: 40
 };
 //tuple example
-let pepsi = ['brown', true, 40];
-let cocaCola;
+var pepsi = ['brown', true, 40];
+var cocaCola;
 // Tuple is not really useful since we don't know what it is. 
 // Please compare these two types: 
-const carSpecs = [400, 3356];
-const catSpecs2 = {
+var carSpecs = [400, 3356];
+var catSpecs2 = {
     horsePower: 400,
     weight: 3354
 };

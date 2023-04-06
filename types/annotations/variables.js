@@ -1,53 +1,56 @@
 "use strict";
 //Type Annotations
-let apples = 5;
-let speed = 'fast';
-let hasName = true;
-let nothingMuch = null;
-let nothing = undefined;
+var apples = 5;
+var speed = 'fast';
+var hasName = true;
+var nothingMuch = null;
+var nothing = undefined;
 // built in objects
-let now = new Date();
+var now = new Date();
 //array
-let colors;
+var colors;
 colors = ['red', 'blue', 'green'];
-let animals;
+var animals;
 animals = ['Elephant', 'Tiger'];
-let myNumbers = [1, 2, 3];
+var myNumbers = [1, 2, 3];
 myNumbers = [5, 6, 7];
 //Classes
-class Car {
-}
-let car = new Car();
+var Car = /** @class */ (function () {
+    function Car() {
+    }
+    return Car;
+}());
+var car = new Car();
 //object literal 
-let point = {
+var point = {
     x: 10,
     y: 20
 };
 // Function 
 // we can use both of thid
-const logNumber = (i) => {
+var logNumber = function (i) {
     console.log(i);
 };
-const logNumber2 = (i) => {
+var logNumber2 = function (i) {
     console.log(i);
 };
 //When to use annotations 
 // 1) Function that returns the 'any` type 
-const json = '{"x": 10, "y": 20}';
-const coordinates = JSON.parse(json);
+var json = '{"x": 10, "y": 20}';
+var coordinates = JSON.parse(json);
 console.log(coordinates);
 //2) 
-let words = ['red', 'green', 'blue'];
-let foundWord;
-for (let i = 0; i < words.length; i++) {
+var words = ['red', 'green', 'blue'];
+var foundWord;
+for (var i = 0; i < words.length; i++) {
     if (words[i] === 'green') {
         foundWord = true;
     }
 }
 //Variable whose type cannot be inferred correctly 
-let numbers = [-10, -1, 12];
-let numberAboveZero = false;
-for (let i = 0; i < numbers.length; i++) {
+var numbers = [-10, -1, 12];
+var numberAboveZero = false;
+for (var i = 0; i < numbers.length; i++) {
     if (numbers[i] > 0) {
         numberAboveZero = numbers[i];
     }

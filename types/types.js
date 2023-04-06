@@ -1,14 +1,15 @@
 "use strict";
-const today = new Date();
+var today = new Date();
 today.getMonth();
-const person = {
+var person = {
     age: 20
 };
-class Color {
-    constructor(name) {
+var Color = /** @class */ (function () {
+    function Color(name) {
         this.name = "no color";
         this.name = name;
     }
-}
-const red = new Color('blue');
+    return Color;
+}());
+var red = new Color('blue');
 console.log(red.name);

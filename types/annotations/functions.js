@@ -1,32 +1,33 @@
 "use strict";
 //Type Inference
-const add = (a, b) => {
+var add = function (a, b) {
     return a + b;
 };
 function add3(a, b) {
     return a + b;
 }
 //Type Annotations
-const add2 = (a, b) => {
+var add2 = function (a, b) {
     return String(a + b);
 };
-const subtract = (a, b) => {
+var subtract = function (a, b) {
     return a - b;
 };
 //void
-const logger = (message) => {
+var logger = function (message) {
     console.log(message);
     return undefined;
 };
-const error = (message) => {
+var error = function (message) {
     throw new Error(message);
 };
 //destructuring
-const todaysWeather = {
+var todaysWeather = {
     date: new Date(),
     weather: 'sunny'
 };
-const logWeather = ({ date, weather }) => {
+var logWeather = function (_a) {
+    var date = _a.date, weather = _a.weather;
     console.log(date);
     console.log(weather);
 };

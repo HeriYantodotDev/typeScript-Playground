@@ -1,24 +1,24 @@
 "use strict";
-const bigTechs = ['Microsoft', 'Google', 'Apple', 'Facebook'];
-let vegetables;
-let dates;
-const movies = [
+var bigTechs = ['Microsoft', 'Google', 'Apple', 'Facebook'];
+var vegetables;
+var dates;
+var movies = [
     ['Sherlock Holmes'],
     ['Enola Holmes'],
     ['Titanic']
 ];
-let people;
-let food;
+var people;
+var food;
 // Help with inference when extracting values
 // We can now hover to the variable, and we can know the type 
-const techCompany = bigTechs[0];
-const removedCompany = bigTechs.pop();
+var techCompany = bigTechs[0];
+var removedCompany = bigTechs.pop();
 // Preven incompatible values - Eerror will pop up.
 // bigTechs.push(1000);
 // Help with array built in function and the type auto-complete.
-bigTechs.map((company) => {
+bigTechs.map(function (company) {
     return company;
 });
 // Flexible types - example below : => const importantDates: (string | Date)[]
-const importantDates = [new Date(), '2020-10-10'];
-let crucialDates = [];
+var importantDates = [new Date(), '2020-10-10'];
+var crucialDates = [];

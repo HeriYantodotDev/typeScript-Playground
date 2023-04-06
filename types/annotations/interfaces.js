@@ -1,21 +1,21 @@
 "use strict";
-const oldPhone = {
+var oldPhone = {
     name: 'Old Iphone',
     year: new Date(),
     broken: true,
-    summary() {
-        return `Name : ${this.name}`;
+    summary: function () {
+        return "Name : ".concat(this.name);
     }
 };
-const drink2 = {
+var drink2 = {
     color: 'brown',
     carbonated: true,
     sugar: 40,
-    summary() {
-        return `My drink has ${this.sugar} grams of sugar`;
+    summary: function () {
+        return "My drink has ".concat(this.sugar, " grams of sugar");
     }
 };
-const printRepot = (item) => {
+var printRepot = function (item) {
     console.log(item.summary());
 };
 printRepot(oldPhone);
