@@ -1,54 +1,26 @@
-@classDecorator
-class Boat {
-  @testDecorator
-  color: string = 'red';
+import 'reflect-metadata';
 
-  @testDecorator
-  get formattedColor(): string {
-    return `This boat color is ${this.color}`;
-  };
+@printMetaData
+class Cat {
+  color: string = 'green';
 
-  @logError('Ooop.... it\'s sinking!!! Help')
-  pilot(
-    @parameterDecorator speed: string, 
-    @parameterDecorator live: boolean
-    ): void {
-    if (speed === 'fast') {
-      console.log('swish');
-    } else {
-      console.log('nothing');
-    }
+  @markFunction('Hello World')
+  sound(): void {
+    console.log('meaw meaw');
   };
 };
 
-function logError(errorMessage: string) {
-  return function (target: any, key: string, desc: PropertyDescriptor): void {
-    const method = desc.value;
-    desc.value = function () {
-      try {
-        method();
-      } catch (err) {
-        console.log(errorMessage);
-      };
-    };
+function markFunction(secretInfo: string) {
+  return function (target: Cat, key: string) {
+    Reflect.defineMetadata('secret', secretInfo, target, key);
   };
 };
 
-function testDecorator(target: any, key: string) {
-  console.log(key);
+//this is how we apply to constractor class
+function printMetaData(target: typeof Cat){
+  for (let key in target.prototype) {
+    const secret = Reflect.getMetadata('secret', target.prototype, key );
+    console.log(secret); //this is going to run it at the first time the class is read
+  };
+
 };
-
-function parameterDecorator(target: any, key: string, index: number ) {
-  console.log(key, index);
-}
-
-function classDecorator(constructor: typeof Boat) {
-  console.log(constructor);
-}
-
-//result
-// color
-// formattedColor
-// pilot 1
-// pilot 0
-// [Function: Boat]

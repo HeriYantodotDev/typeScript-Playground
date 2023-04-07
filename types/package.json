@@ -1,0 +1,15 @@
+{
+  "name": "types",
+  "version": "1.0.0",
+  "description": "> Type ⇒ Easy way to refer to the different properties + functions that a value has.",
+  "main": "types.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
